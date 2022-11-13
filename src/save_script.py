@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+from datetime import datetime
 
 def build_save_path(save_folder_path, save_file_name):
     save_file = save_folder_path
@@ -30,7 +31,12 @@ def main(args):
     git_save_path = os.path.join(present_working_directory, "..", "saves")
     shutil.copy2(save_path, git_save_path)
 
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
     os.system("git add ../saves/.")
+    os.system(f"git commit -m \"{character_name} - {dt_string}\"")
+    os.system("git push")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
