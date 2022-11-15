@@ -9,14 +9,7 @@ def build_save_path(save_folder_path, save_file_name):
         save_file += "/"
     return save_file + save_file_name
 
-def main(args):
-    character_name = args[0]
-
-    home_directory = os.path.expanduser('~')
-    save_folder_path = f"{home_directory}/Documents/My Games/Oblivion/Saves"
-    if len(args) > 1:
-        save_folder_path = args[1]
-
+def save(character_name, save_folder_path):
     save_file_names = [f for f in os.listdir(save_folder_path) if character_name in f]
     
     if len(save_file_names) > 1:
@@ -37,7 +30,3 @@ def main(args):
     os.system("git add ../saves/.")
     os.system(f"git commit -m \"{character_name} - {dt_string}\"")
     os.system("git push")
-
-if __name__ == "__main__":
-    args = sys.argv[1:]
-    main(args)
